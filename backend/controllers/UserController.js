@@ -18,6 +18,14 @@ const UserController = {
         } catch (error) {
             return res.status(400).json({ error });
         }
+    },
+    index: async (req, res) => {
+        const users = await User.findAll({
+            order: [
+                ['name', 'ASC'],
+            ]
+        });
+        return res.json(users);
     }
 }
 
