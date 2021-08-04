@@ -1,8 +1,8 @@
 const express = require('express');
 const routes = express.Router();
 
-const IndexController = require('./controllers/IndexController');
+const UserController = require('./controllers/UserController');
 
-routes.get('/', IndexController.index);
+routes.post('/:slug/registrar', UserController.create);
 
 module.exports = routes;
