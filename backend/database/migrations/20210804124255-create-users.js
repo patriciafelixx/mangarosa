@@ -36,7 +36,8 @@ module.exports = {
         defaultValue: false
       },
       slug: {
-        type: Sequelize.STRING(100)
+        type: Sequelize.STRING(100),
+        unique: true
       },
       createdAt: {
         type: Sequelize.DATE,

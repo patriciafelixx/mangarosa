@@ -26,6 +26,23 @@ const UserController = {
             ]
         });
         return res.json(users);
+    },
+    validate: async (req, res) => {
+        const { slug } = req.params;
+        const user = await User.findOne({
+            where: { slug }
+        })
+        return res.json(user);
+    },
+    update: async (req, res) => {
+        const { slug } = req.params;
+        const user = await User.findOne({
+            where: { slug }
+        })
+
+        user.active = user.active ? false : true;
+        await user.save();
+        return res.json(user);
     }
 }
 
