@@ -5,6 +5,7 @@ import './App.css';
 
 import Header from './components/Header';
 import Index from './pages/Index';
+import Validate from './pages/Validate';
 import Footer from './components/Footer';
 
 const App = () => {
@@ -13,6 +14,7 @@ const App = () => {
         <Header />
         <Switch>
             <Route path="/registros" component={Index} />
+            <Route path="/:slug/validar" component={Validate} />
         </Switch>
         <Footer />
     </BrowserRouter>

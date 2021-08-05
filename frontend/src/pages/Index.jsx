@@ -35,7 +35,7 @@ class Index extends Component {
                                 <td>{record.id}</td>
                                 <td>{record.name}</td>
                                 <td>{record.active ? 'Validado' : "Não Validado"}</td>
-                                <td><Button href={`${record.slug}/ativar`} variant="outline-danger">ver detalhes</Button></td>
+                                <td><Button href={`${record.slug}/validar`} variant="outline-danger">ver detalhes</Button></td>
                             </tr>
                         ))}
                     </tbody>
