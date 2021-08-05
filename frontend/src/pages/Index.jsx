@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Container, Table } from 'react-bootstrap';
 import api from '../services/api';
-import './Index.css';
 
 class Index extends Component {
 
