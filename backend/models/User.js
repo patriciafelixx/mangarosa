@@ -7,7 +7,7 @@ class User extends Model {
                 type: DataTypes.STRING,
                 validate: {
                     notEmpty: {
-                        msg: 'Esse campo não pode ser vazio'
+                        msg: 'O campo nome não pode ser vazio'
                     }
                 }
             },
