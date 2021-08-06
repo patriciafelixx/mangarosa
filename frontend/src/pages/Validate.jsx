@@ -1,21 +1,29 @@
 import React, { Component } from 'react';
-import { Button, Container, Card } from 'react-bootstrap';
+import { Button, Container, Card, Form, FormGroup } from 'react-bootstrap';
 import api from '../services/api';
 
 class Validate extends Component {
 
     state = {
-        record: {}
+        record: {},
+        slug: ''
     }
 
     async componentDidMount() {
         const { slug } = this.props.match.params;
         const response = await api.get(`${slug}/validar`);
-        this.setState({ record: response.data });
+        this.setState({ record: response.data, slug });
     }
 
     render() {
-        const { record } = this.state;
+        const { record, slug } = this.state;
+
+        const onSubmit = async (e) => {
+            e.preventDefault();
+            await api.put(`http://localhost:3333/${slug}/validar`);
+            window.location.reload();
+
+        }
 
         return (
             <Container className="content">
@@ -23,9 +31,18 @@ class Validate extends Component {
                 <p className="mb-3 text-muted">Validação de Registro:</p>
 
                 <Card>
-                    <Card.Header>
-                        <Card.Subtitle className="mb-1 mt-2 text-muted">NOME:</Card.Subtitle>
-                        <Card.Title>{record.name}</Card.Title>
+                    <Card.Header className="d-flex justify-content-between align-items-center">
+                        <div>
+                            <Card.Subtitle className="mb-1 mt-2 text-muted">NOME:</Card.Subtitle>
+                            <Card.Title>{record.name}</Card.Title>
+                        </div>
+
+                        <div>
+                            Situação:
+                            <span style={{ color: record.active ? "green" : "red" }}>
+                                {record.active ? ' Registro validado ✔' : ' Registro não validado!'}
+                            </span>
+                        </div>
                     </Card.Header>
                     <Card.Body>
 
@@ -41,14 +58,15 @@ class Validate extends Component {
                         <Card.Subtitle className="mb-1 mt-2 text-muted">CONHECIMENTOS:</Card.Subtitle>
                         <Card.Title className="mb-3">{record.skills}</Card.Title>
 
-                        <Card.Text className="mt-4">
-                            Confirme todos os dados fornecidos pelo usuário para validação do registro.
-                        </Card.Text>
-
-                        <div className="d-flex justify-content-between">
-                            <Button variant="success">VALIDAR</Button>
-                            <Button variant="outline-secondary">NÃO VALIDAR</Button>
-                        </div>
+                        <Form onSubmit={onSubmit}>
+                            <FormGroup className="d-flex justify-content-end">
+                                {record.active ? (
+                                    <Button type="submit" variant="outline-secondary">NÃO VALIDAR</Button>
+                                ) : (
+                                    <Button type="submit" variant="success">VALIDAR</Button>
+                                )}
+                            </FormGroup>
+                        </Form>
 
                     </Card.Body>
                     <Card.Footer className="text-muted">{`Atualizado em ${record.updatedAt}`}</Card.Footer>
